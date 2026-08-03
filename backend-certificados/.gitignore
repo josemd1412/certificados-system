@@ -1,1 +1,26 @@
+# Dependencies
 node_modules
+dist
+
+# Environment variables
+.env
+.env.local
+
+# Google credentials
+src/config/service-account.json
+*.json
+!package.json
+!package-lock.json
+!tsconfig.json
+
+# Database
+database/*.db
+database/*.db-journal
+
+# IDE
+.vscode
+.idea
+
+# Logs
+*.log
+npm-debug.log*

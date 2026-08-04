@@ -24,3 +24,7 @@ database/*.db-journal
 # Logs
 *.log
 npm-debug.log*
+
+## Ocultar varible sde entorno
+
+.env

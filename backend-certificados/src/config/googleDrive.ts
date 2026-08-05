@@ -4,12 +4,36 @@ import dotenv from 'dotenv';
 
 dotenv.config();
 
-const KEYFILEPATH = path.join(__dirname, 'service-account.json');
-const SCOPES = ['https://www.googleapis.com/auth/drive.readonly'];
+const SCOPES = ['https://www.googleapis.com/auth/drive'];
+
+// Función para obtener credenciales
+function getCredentials() {
+  // Producción: usar variable de entorno base64
+  if (process.env.GOOGLE_SERVICE_ACCOUNT_BASE64) {
+    try {
+      const jsonString = Buffer.from(
+        process.env.GOOGLE_SERVICE_ACCOUNT_BASE64,
+        'base64'
+      ).toString();
+      return JSON.parse(jsonString);
+    } catch (error) {
+      console.error('Error al decodificar credenciales de Google Drive:', error);
+      throw new Error('Credenciales de Google Drive inválidas');
+    }
+  }
+
+  // Desarrollo: usar archivo local
+  if (process.env.NODE_ENV === 'development') {
+    const KEYFILEPATH = path.join(__dirname, 'service-account.json');
+    return require(KEYFILEPATH);
+  }
+
+  throw new Error('No se encontraron credenciales de Google Drive. Configure GOOGLE_SERVICE_ACCOUNT_BASE64.');
+}
 
 // Autenticación con cuenta de servicio
 const auth = new google.auth.GoogleAuth({
-  keyFile: KEYFILEPATH,
+  credentials: getCredentials(),
   scopes: SCOPES,
 });
 

@@ -28,4 +28,4 @@ npm-debug.log*
 ## Ocultar varible sde entorno
 
 .env
-.credentials-base64.txt
+credentials-base64.txt

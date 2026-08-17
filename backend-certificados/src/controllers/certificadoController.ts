@@ -30,7 +30,7 @@ export const buscarCertificados = async (req: Request, res: Response) => {
  */
 export const obtenerPorCodigo = async (req: Request, res: Response) => {
   try {
-    const { codigo } = req.params;
+    const codigo = req.params.codigo as string;
     const certificado = await certificadoService.obtenerPorCodigo(codigo);
 
     if (!certificado) {
@@ -115,7 +115,7 @@ export const obtenerTodos = async (req: Request, res: Response) => {
  */
 export const obtenerArchivoDrive = async (req: Request, res: Response) => {
   try {
-    const { fileId } = req.params;
+    const fileId = req.params.fileId as string;
     const file = await driveService.getFileById(fileId);
     res.json(file);
   } catch (error) {

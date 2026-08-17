@@ -25,7 +25,7 @@ export const obtenerTodos = async (req: Request, res: Response) => {
  */
 export const obtenerPorId = async (req: Request, res: Response) => {
   try {
-    const { id } = req.params;
+    const id = req.params.id as string;
     const curso = await cursoService.obtenerPorId(parseInt(id));
 
     if (!curso) {
@@ -45,7 +45,7 @@ export const obtenerPorId = async (req: Request, res: Response) => {
  */
 export const obtenerCertificados = async (req: Request, res: Response) => {
   try {
-    const { id } = req.params;
+    const id = req.params.id as string;
     const certificados = await certificadoService.buscarCertificados({
       curso_id: parseInt(id)
     });
@@ -63,7 +63,7 @@ export const obtenerCertificados = async (req: Request, res: Response) => {
  */
 export const obtenerEstadisticas = async (req: Request, res: Response) => {
   try {
-    const { id } = req.params;
+    const id = req.params.id as string;
     const stats = await cursoService.obtenerEstadisticas(parseInt(id));
     res.json(stats);
   } catch (error) {
@@ -109,7 +109,7 @@ export const crearCurso = async (req: Request, res: Response) => {
  */
 export const actualizarCurso = async (req: Request, res: Response) => {
   try {
-    const { id } = req.params;
+    const id = req.params.id as string;
     const { nombre, descripcion } = req.body;
 
     const curso = await cursoService.actualizarCurso(parseInt(id), { nombre, descripcion });
@@ -131,7 +131,7 @@ export const actualizarCurso = async (req: Request, res: Response) => {
  */
 export const eliminarCurso = async (req: Request, res: Response) => {
   try {
-    const { id } = req.params;
+    const id = req.params.id as string;
 
     const eliminado = await cursoService.eliminarCurso(parseInt(id));
 
@@ -152,7 +152,7 @@ export const eliminarCurso = async (req: Request, res: Response) => {
  */
 export const cargarCertificadosMasivo = async (req: Request, res: Response) => {
   try {
-    const { id: cursoId } = req.params;
+    const cursoId = req.params.id as string;
     const files = req.files as { pdfs?: Express.Multer.File[], excel?: Express.Multer.File[] };
 
     // Validaciones

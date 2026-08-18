@@ -28,6 +28,7 @@ export const leerExcel = (buffer: Buffer): DatosAlumno[] => {
 /**
  * Extrae el DNI del nombre de un archivo PDF
  * Patrones soportados:
+ * - 48053804-Nombre Alumno-Curso.pdf → 48053804
  * - certificadoa75162043.pdf → 75162043
  * - certificado75162043.pdf → 75162043
  * - 75162043.pdf → 75162043
@@ -39,6 +40,7 @@ export const extraerDNIdePDF = (nombreArchivo: string): string | null => {
 
     // Intentar varios patrones
     const patrones = [
+      /^(\d{8,})/,               // 48053804-Nombre-Curso (DNI al inicio)
       /certificadoa?(\d+)$/i,  // certificadoa75162043 o certificado75162043
       /^(\d+)$/,                // 75162043
       /(\d{8,})$/               // Cualquier secuencia de 8+ dígitos al final

@@ -14,12 +14,8 @@ const options: swaggerJsdoc.Options = {
     },
     servers: [
       {
-        url: 'http://localhost:5000',
-        description: 'Servidor de desarrollo'
-      },
-      {
-        url: 'https://tu-backend.railway.app',
-        description: 'Servidor de producción'
+        url: '/',
+        description: 'Servidor actual'
       }
     ],
     tags: [
